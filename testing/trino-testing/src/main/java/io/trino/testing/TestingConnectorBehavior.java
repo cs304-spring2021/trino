@@ -48,16 +48,16 @@ public enum TestingConnectorBehavior
 
     /**/;
 
-    private final Predicate<Predicate<TestingConnectorBehavior>> defaultBehavior;
+    private final Predicate<Predicate<TestingConnectorBehavior>> hasBehaviorByDefault;
 
     TestingConnectorBehavior()
     {
         this(true);
     }
 
-    TestingConnectorBehavior(boolean defaultBehavior)
+    TestingConnectorBehavior(boolean hasBehaviorByDefault)
     {
-        this(fallback -> defaultBehavior);
+        this(fallback -> hasBehaviorByDefault);
     }
 
     TestingConnectorBehavior(TestingConnectorBehavior defaultBehaviorSource)
@@ -65,9 +65,9 @@ public enum TestingConnectorBehavior
         this(fallback -> fallback.test(defaultBehaviorSource));
     }
 
-    TestingConnectorBehavior(Predicate<Predicate<TestingConnectorBehavior>> defaultBehavior)
+    TestingConnectorBehavior(Predicate<Predicate<TestingConnectorBehavior>> hasBehaviorByDefault)
     {
-        this.defaultBehavior = requireNonNull(defaultBehavior, "defaultBehavior is null");
+        this.hasBehaviorByDefault = requireNonNull(hasBehaviorByDefault, "hasBehaviorByDefault is null");
     }
 
     /**
@@ -79,6 +79,6 @@ public enum TestingConnectorBehavior
     // If it was to be public, a different API would need to be provided.
     boolean hasBehaviorByDefault(Predicate<TestingConnectorBehavior> fallback)
     {
-        return defaultBehavior.test(fallback);
+        return hasBehaviorByDefault.test(fallback);
     }
 }
