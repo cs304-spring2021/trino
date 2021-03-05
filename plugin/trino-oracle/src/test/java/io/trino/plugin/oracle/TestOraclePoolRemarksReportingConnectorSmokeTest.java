@@ -35,7 +35,7 @@ public class TestOraclePoolRemarksReportingConnectorSmokeTest
     protected QueryRunner createQueryRunner()
             throws Exception
     {
-        oracleServer = closeAfterClass(new TestingOracleServer());
+        oracleServer = new TestingOracleServer();
         return OracleQueryRunner.createOracleQueryRunner(
                 oracleServer,
                 ImmutableMap.of(),
